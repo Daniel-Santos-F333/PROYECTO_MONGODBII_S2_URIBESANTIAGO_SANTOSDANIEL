@@ -12,11 +12,8 @@
 <br>
 <br>
 <br>
-<br>
-<br>
 
 ### SANTIAGO URIBE DUARTE
-<br>
 <br>
 
 ### DANIEL SANTOS FAJARDO
@@ -28,11 +25,9 @@
 
 <br>
 <br>
-<br>
 
 ### PEDRO FELIPE GOMEZ BONILLA
 
-<br>
 <br>
 <br>
 <br>
@@ -44,5 +39,14 @@
 ### RUTA NODE.js
 ### BUCARAMANGA
 ### 2025
-
+<br>
+<br>
+<br><br>
+<br>
+<br>
 </div>
+
+## Tabla de Contenido
+- [Introducción](#introduccion) ............................................................................................................................. 2
+- [Caso de Estudio](#casodeestudio)........................................................................................................................ 3
+-
