@@ -1,15 +1,39 @@
 db_config
 
+db.createCollection("estado", {
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            required: ["estado"],
+            properties: {
+                estado: { bsonType: "string", enum: ["basico", "intermedio", "avanzado"] }
+            }
+        }
+    }
+});
+
+db.createCollection("nivel", {
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            required: ["nivel"],
+            properties: {
+                nivel: { bsonType: "string", enum: ["activo", "inactivo"] }
+            }
+        }
+    }
+});
+
 db.createCollection("estudiantes", {
     validator: {
         $jsonSchema: {
             bsonType: "object",
-            required: ["nombre", "documento", "nivel", "estado"],
+            required: ["nombre", "documento", "telefono", "idNivel"],
             properties: {
                 nombre: { bsonType: "string", minLength: 3 },
                 documento: { bsonType: "string", minLength: 5 },
-                nivel: { enum: ["basico", "intermedio", "avanzado"] },
-                estado: { enum: ["activo", "inactivo"] },
+                id_Nivel: {bsonType: "object_id"},
+                idEstado: {bsonType: "object_id"},
                 correo: { bsonType: "string", pattern: "^.+@.+\\..+$" },
                 telefono: { bsonType: "string" },
                 creadoEn: { bsonType: "date" }
@@ -22,13 +46,13 @@ db.estudiantes.createIndex({ documento: 1 }, { unique: true });
 
 db.estudiantes.insertMany([
     {
-        nombre: "Juan Pérez",
-        documento: "TI109890839",
-        nivel: "basico",
-        estado: "activo",
-        correo: "juan@gmail.com",
-        telefono: "3171234567",
-        creadoEn: new Date()
+        nombre: "1239823128391",
+        documento: TI109890839,
+        nivel: "danielHIjueputa",
+        estado: "nininini",
+        correo: juangmailcom,
+        telefono: 3171234567,
+        creadoEn: 27 / 10 / 25
     },
     {
         nombre: "Ana Gómez",
