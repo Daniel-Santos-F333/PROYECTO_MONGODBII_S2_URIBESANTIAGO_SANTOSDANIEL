@@ -48,7 +48,7 @@ db.estudiantes.insertMany([
     {
         nombre: "1239823128391",
         documento: TI109890839,
-        nivel: "danielHIjueputa",
+        nivel: sinNIvel,
         estado: "nininini",
         correo: juangmailcom,
         telefono: 3171234567,
