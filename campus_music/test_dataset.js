@@ -81,3 +81,17 @@ db.cursos.insertMany([
     creadoEn: new Date(),
   },
 ]);
+//Inserciones de cursos
+db.profesores.insertMany([
+    { nombre: "Ana Pérez",   especialidadId: 1, experiencia: 5,  estadoId: 1, correo: "ana@cm.com",    telefono: "3000000000", cursosAsignados: [], creadoEn: new Date() },
+    { nombre: "Carlos Ruiz", especialidadId: 2, experiencia: 8,  estadoId: 1, correo: "carlos@cm.com", telefono: "3010000000", cursosAsignados: [], creadoEn: new Date() },
+    { nombre: "Laura Gómez", especialidadId: 4, experiencia: 4,  estadoId: 2, correo: "laura@cm.com",  telefono: "3020000000", cursosAsignados: [], creadoEn: new Date() },
+    { nombre: "Miguel Torres",   especialidadId: 3, experiencia: 10, estadoId: 1, correo: "miguel@cm.com",   telefono: "3030000000", cursosAsignados: [], creadoEn: new Date() },
+    { nombre: "Sofía Hernández", especialidadId: 2, experiencia: 6,  estadoId: 1, correo: "sofia@cm.com",    telefono: "3040000000", cursosAsignados: [], creadoEn: new Date() },
+    { nombre: "Andrés Castro",   especialidadId: 5, experiencia: 7,  estadoId: 1, correo: "andres@cm.com",   telefono: "3050000000", cursosAsignados: [], creadoEn: new Date() },
+    { nombre: "Valentina Mora",  especialidadId: 1, experiencia: 3,  estadoId: 2, correo: "valentina@cm.com",telefono: "3060000000", cursosAsignados: [], creadoEn: new Date() },
+    { nombre: "Juan López",      especialidadId: 3, experiencia: 9,  estadoId: 1, correo: "juan@cm.com",     telefono: "3070000000", cursosAsignados: [], creadoEn: new Date() },
+    { nombre: "María Díaz",      especialidadId: 4, experiencia: 2,  estadoId: 2, correo: "maria@cm.com",    telefono: "3080000000", cursosAsignados: [], creadoEn: new Date() },
+    { nombre: "Diego Fernández", especialidadId: 5, experiencia: 11, estadoId: 1, correo: "diego@cm.com",    telefono: "3090000000", cursosAsignados: [], creadoEn: new Date() }
+  ]);
+  
