@@ -197,8 +197,8 @@ db.cursos.insertOne({
   duracionSemanas: 0,
   cupos: 10,
   costo: -1,
-  sedeId: "no-es-objectid",
-  profesorId: "no-es-objectid",
+  sedeId: "objectid",
+  profesorId: "objectid",
   cursoEstadoId: 9,
   creadoEn: new Date()
 });
