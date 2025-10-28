@@ -207,7 +207,7 @@ db.cursos.insertOne({
 db.cursos.insertMany([
   { instrumentoTipoId: 1, nivelId: 1, duracionSemanas: 8,  cupos: 12, costo: 400000, sedeId: ObjectId(), profesorId: ObjectId(), cursoEstadoId: 2, creadoEn: new Date() },
   { instrumentoTipoId: 2, nivelId: 2, duracionSemanas: 10, cupos: 10, costo: 450000, sedeId: ObjectId(), profesorId: ObjectId(), cursoEstadoId: 1, creadoEn: new Date() },
-  { instrumentoTipoId: 3, nivelId: 3, duracionSemanas: 12, cupos: 8,  costo: 500000, sedeId: ObjectId(), profesorId: ObjectId(), cursoEstadoId: 1, creadoEn: new Date() }
+  { instrumentoTipoId: 3, nivelId: 3, duracionSemanas: 12, cupos: 8,  costo: 500000, sedeId: ObjectId(), profesorId: ObjectId(), cursoEstadoId: 1, creadoEn: new Date() },
 ]);
 
 
