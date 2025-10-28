@@ -69,8 +69,13 @@
 </div>
 <br>
 <br>
-En este documento se dará a mostrar el desarrollo de una solución al problema presentado por la empresa Campus Music, en el que buscamos mejorar su gestión de datos estableciendo una base de datos que permita una facilidad.
+En este documento se presenta el desarrollo de una base de datos como solución a la situación actual de la empresa Campus Music, la cual busca mejorar su gestión de información y facilitar los procesos relacionados con su trabajo El objetivo principal es implementar una base de datos que permita un acceso más rápido, estructurado y eficiente a los datos evitando la redundancia y duplicacion de información y los errores comunes derivados del manejo manual mediante las hojas de cálculo.
 
+Esta propuesta surge ante la necesidad de actualizar y modernizar el sistema de gestion de datos que actualmente utiliza la empresa, pasando de un manejo disperso de datos a una solución unificada y automatica. Con el uso de MongoDB, se busca aprovechar su flexibilidad y capacidad para mnejar grandes volúmenes de información en estructuras no relacionales, lo cual se aprovechara ya que sirve para un entorno donde los datos pueden variar y relacionarse de distintas formas.
+
+A lo largo del documento se describe el proceso seguido para el desarrollo del proyecto, comenzando con el análisis del caso e identificar las principales problemáticas. Siguiendo con la explicación del diseño del modelo conceptual y lógico, que se acompaña de diagramas para representar las entidades y relaciones del sistema. Finalmente, se expone la implementación en el gestor de bases de datos MongoDB, que corresponde al modelo físico, junto con las decisiones técnicas aplicadas para garantizar la integridad, consistencia y escalabilidad de los datos.
+
+Y asi el proyecto no solo busca ofrecer una solución funcional a los problemas actuales de Campus Music, sino también servir como una práctica de lo visto en clases.
 
 <br>
 <br>
@@ -79,7 +84,8 @@ En este documento se dará a mostrar el desarrollo de una solución al problema 
 <br>
 <br>
 <br>
- <div align="center">
+<br>
+<div align="center">
 <h1>Caso de Estudio</h1>
 </div>
 <br>
