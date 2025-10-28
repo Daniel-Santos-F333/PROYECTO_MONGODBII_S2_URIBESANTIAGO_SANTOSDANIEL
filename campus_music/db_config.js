@@ -1,28 +1,40 @@
 db_config
 
+db.createCollection("nivel", {
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            required: ["_id", "nombre"],
+            properties: {
+                _id: { bsonType: "int" },
+                nombre: { bsonType: "string", enum: ["basico", "intermedio", "avanzado"] }
+            }
+        }
+    }
+});
+db.nivel.insertMany([
+    { _id: 1, nombre: "basico" },
+    { _id: 2, nombre: "intermedio" },
+    { _id: 3, nombre: "avanzado" }
+]);
+
 db.createCollection("estado", {
     validator: {
         $jsonSchema: {
             bsonType: "object",
             required: ["estado"],
             properties: {
-                estado: { bsonType: "string", enum: ["basico", "intermedio", "avanzado"] }
-            }
-        }
-    }
-});
-
-db.createCollection("nivel", {
-    validator: {
-        $jsonSchema: {
-            bsonType: "object",
-            required: ["nivel"],
-            properties: {
                 nivel: { bsonType: "string", enum: ["activo", "inactivo"] }
             }
         }
     }
 });
+
+db.estado.insertMany([
+    { _id: 1, nombre: "activo" },
+    { _id: 2, nombre: "inactivo" }
+]);
+
 
 db.createCollection("estudiantes", {
     validator: {
@@ -32,8 +44,8 @@ db.createCollection("estudiantes", {
             properties: {
                 nombre: { bsonType: "string", minLength: 3 },
                 documento: { bsonType: "string", minLength: 5 },
-                id_Nivel: {bsonType: "object_id"},
-                idEstado: {bsonType: "object_id"},
+                id_Nivel: { bsonType: "object_id" },
+                idEstado: { bsonType: "object_id" },
                 correo: { bsonType: "string", pattern: "^.+@.+\\..+$" },
                 telefono: { bsonType: "string" },
                 creadoEn: { bsonType: "date" }
@@ -44,34 +56,20 @@ db.createCollection("estudiantes", {
 
 db.estudiantes.createIndex({ documento: 1 }, { unique: true });
 
+db.estudiantes.insertOne({
+    nombre: "1239823128391",
+    documento: "TI109890839",
+    nivelId: 99,             // Este nivel no existe por lo que debe dar error
+    estadoId: "activo",      // Deber ser un entero, debe dar error
+    correo: "juangmailcom",  // No cumple con la sintaxis, debe dar error
+    telefono: "3171234567",
+    creadoEn: new Date("2025-10-27")
+});
+
 db.estudiantes.insertMany([
-    {
-        nombre: "1239823128391",
-        documento: TI109890839,
-        nivel: sinNIvel,
-        estado: "nininini",
-        correo: juangmailcom,
-        telefono: 3171234567,
-        creadoEn: 27 / 10 / 25
-    },
-    {
-        nombre: "Ana Gómez",
-        documento: "TI102993201",
-        nivel: "intermedio",
-        estado: "activo",
-        correo: "ana@gmail.com",
-        telefono: "3171234567",
-        creadoEn: new Date()
-    },
-    {
-        nombre: "Luis Torres",
-        documento: "CC213124102",
-        nivel: "avanzado",
-        estado: "inactivo",
-        correo: "luis@gmail.com",
-        telefono: "3171234567",
-        creadoEn: new Date()
-    }
+    { nombre: "Juan Pérez", documento: "TI109890839", nivelId: 1, estadoId: 1, correo: "juan@gmail.com", telefono: "3171234567", contacto: { ciudad: "Bogotá", direccion: "Cra 17 # 55-64" }, creadoEn: new Date() },
+    { nombre: "Ana Gómez", documento: "TI102993201", nivelId: 2, estadoId: 1, correo: "ana@gmail.com", telefono: "3171234568", contacto: { ciudad: "Bogotá", direccion: "Av El Poblado 45-67" }, creadoEn: new Date() },
+    { nombre: "Luis Torres", documento: "CC213124102", nivelId: 3, estadoId: 2, correo: "luis@gmail.com", telefono: "3171234569", contacto: { ciudad: "Cali", direccion: "Calle 17e # 67-89" }, creadoEn: new Date() }
 ]);
 
 db.createCollection("profesores", {
