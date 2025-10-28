@@ -120,28 +120,41 @@ db.profesores.insertMany([
   { nombre: "Laura Gómez", especialidadId: 4, experiencia: 4, estadoId: 2, correo: "laura@cm.com",  telefono: "3020000000", cursosAsignados: [], creadoEn: new Date() }
 ]);
 
-
 db.createCollection("sedes", {
-    validator: {
-        $jsonSchema: {
-            bsonType: "object",
-            required: ["ciudad", "direccion", "capacidad", "estado"],
-            properties: {
-                ciudad: { bsonType: "string", minLength: 2 },
-                direccion: { bsonType: "string", minLength: 5 },
-                capacidad: { bsonType: "int", minimum: 1 },
-                estado: { enum: ["activa", "inactiva"] },
-                creadoEn: { bsonType: "date" }
-            }
-        }
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["ciudad", "direccion", "capacidad", "estadoId", "creadoEn"],
+      properties: {
+        ciudad: { bsonType: "string", minLength: 2 },
+        direccion: { bsonType: "string", minLength: 5 },
+        capacidad: { bsonType: "int", minimum: 1 },
+        estadoId: { bsonType: "int" },
+        creadoEn: { bsonType: "date" }
+      }
     }
+  }
 });
 
+db.sedes.createIndex({ ciudad: 1, estadoId: 1 });
+db.sedes.createIndex({ ciudad: 1, direccion: 1 }, { unique: true });
+
+// Dato erróneo (debe fallar) //
+db.sedes.insertOne({
+  ciudad: "B",
+  direccion: "C 1",
+  capacidad: 0,
+  estadoId: "activa",
+  creadoEn: new Date()
+});
+
+
 db.sedes.insertMany([
-    { ciudad: "Bogotá", direccion: "Cra 1 # 23-45", capacidad: 300, estado: "activa", creadoEn: new Date() },
-    { ciudad: "Medellín", direccion: "Av El Poblado 45-67", capacidad: 200, estado: "activa", creadoEn: new Date() },
-    { ciudad: "Cali", direccion: "Calle 5 # 67-89", capacidad: 180, estado: "activa", creadoEn: new Date() }
+  { ciudad: "Bogotá", direccion: "Cra 1 # 23-45", capacidad: 300, estadoId: 1, creadoEn: new Date() },
+  { ciudad: "Medellín", direccion: "Av El Poblado 45-67", capacidad: 200, estadoId: 1, creadoEn: new Date() },
+  { ciudad: "Cali", direccion: "Calle 5 # 67-89", capacidad: 180, estadoId: 1, creadoEn: new Date() }
 ]);
+
 
 const sede = db.sedes.findOne();
 const profesor = db.profesores.findOne();
