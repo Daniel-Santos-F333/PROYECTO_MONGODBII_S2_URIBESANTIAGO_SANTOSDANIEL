@@ -156,33 +156,58 @@ db.sedes.insertMany([
 ]);
 
 
-const sede = db.sedes.findOne();
-const profesor = db.profesores.findOne();
-
 db.createCollection("cursos", {
-    validator: {
-        $jsonSchema: {
-            bsonType: "object",
-            required: ["instrumento", "nivel", "duracionSemanas", "cupos", "costo", "sedeId", "profesorId", "estado"],
-            properties: {
-                instrumento: { enum: ["Piano", "Guitarra", "Violin", "Canto", "Teoria"] },
-                nivel: { enum: ["basico", "intermedio", "avanzado"] },
-                duracionSemanas: { bsonType: "int", minimum: 1 },
-                cupos: { bsonType: "int", minimum: 1 },
-                costo: { bsonType: "double", minimum: 0 },
-                sedeId: { bsonType: "objectId" },
-                profesorId: { bsonType: "objectId" },
-                estado: { enum: ["programado", "en_ejecucion", "finalizado"] },
-                creadoEn: { bsonType: "date" }
-            }
-        }
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: [
+        "instrumentoTipoId",
+        "nivelId",
+        "duracionSemanas",
+        "cupos",
+        "costo",
+        "sedeId",
+        "profesorId",
+        "cursoEstadoId",
+        "creadoEn"
+      ],
+      properties: {
+        instrumentoTipoId: { bsonType: "int" },
+        nivelId: { bsonType: "int" },
+        duracionSemanas: { bsonType: "int", minimum: 1 },
+        cupos: { bsonType: "int", minimum: 1 },
+        costo: { bsonType: "double", minimum: 0 },
+        sedeId: { bsonType: "objectId" },
+        profesorId: { bsonType: "objectId" },
+        cursoEstadoId: { bsonType: "int" },
+        creadoEn: { bsonType: "date" }
+      }
     }
+  }
 });
 
+db.cursos.createIndex({ sedeId: 1, cursoEstadoId: 1 });
+db.cursos.createIndex({ profesorId: 1, cursoEstadoId: 1 });
+db.cursos.createIndex({ nivelId: 1, instrumentoTipoId: 1 });
+
+/* Dato erróneo */
+db.cursos.insertOne({
+  instrumentoTipoId: "Piano",
+  nivelId: 99,
+  duracionSemanas: 0,
+  cupos: 10,
+  costo: -1,
+  sedeId: "no-es-objectid",
+  profesorId: "no-es-objectid",
+  cursoEstadoId: 9,
+  creadoEn: new Date()
+});
+
+
 db.cursos.insertMany([
-    { instrumento: "Piano", nivel: "basico", duracionSemanas: 8, cupos: 12, costo: 400000, sedeId: sede._id, profesorId: profesor._id, estado: "en_ejecucion", creadoEn: new Date() },
-    { instrumento: "Guitarra", nivel: "intermedio", duracionSemanas: 10, cupos: 10, costo: 450000, sedeId: sede._id, profesorId: profesor._id, estado: "programado", creadoEn: new Date() },
-    { instrumento: "Canto", nivel: "avanzado", duracionSemanas: 12, cupos: 8, costo: 500000, sedeId: sede._id, profesorId: profesor._id, estado: "programado", creadoEn: new Date() }
+  { instrumentoTipoId: 1, nivelId: 1, duracionSemanas: 8,  cupos: 12, costo: 400000, sedeId: ObjectId(), profesorId: ObjectId(), cursoEstadoId: 2, creadoEn: new Date() },
+  { instrumentoTipoId: 2, nivelId: 2, duracionSemanas: 10, cupos: 10, costo: 450000, sedeId: ObjectId(), profesorId: ObjectId(), cursoEstadoId: 1, creadoEn: new Date() },
+  { instrumentoTipoId: 3, nivelId: 3, duracionSemanas: 12, cupos: 8,  costo: 500000, sedeId: ObjectId(), profesorId: ObjectId(), cursoEstadoId: 1, creadoEn: new Date() }
 ]);
 
 
