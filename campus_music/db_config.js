@@ -213,90 +213,219 @@ db.cursos.insertMany([
 
 
 db.createCollection("inscripciones", {
-    validator: {
-        $jsonSchema: {
-            bsonType: "object",
-            required: ["estudianteId", "cursoId", "costo", "fechaInscripcion", "estado"],
-            properties: {
-                estudianteId: { bsonType: "objectId" },
-                cursoId: { bsonType: "objectId" },
-                costo: { bsonType: "double", minimum: 0 },
-                fechaInscripcion: { bsonType: "date" },
-                estado: { enum: ["activa", "retirada", "finalizada"] },
-                creadoEn: { bsonType: "date" }
-            }
-        }
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: [
+        "estudianteId",
+        "cursoId",
+        "costo",
+        "fechaInscripcion",
+        "inscripcionEstadoId",
+        "creadoEn"
+      ],
+      properties: {
+        estudianteId: { bsonType: "objectId" },
+        cursoId: { bsonType: "objectId" },
+        costo: { bsonType: "double", minimum: 0 },
+        fechaInscripcion: { bsonType: "date" },
+        inscripcionEstadoId: { bsonType: "int" }, 
+        creadoEn: { bsonType: "date" }
+      }
     }
+  }
+});
+
+db.inscripciones.createIndex({ estudianteId: 1, inscripcionEstadoId: 1 });
+db.inscripciones.createIndex({ cursoId: 1 });
+db.inscripciones.createIndex({ fechaInscripcion: 1 });
+
+/* Dato erróneo (debe fallar) */
+db.inscripciones.insertOne({
+  estudianteId: "😄",
+  cursoId: ObjectId(),
+  costo: -10,
+  fechaInscripcion: "2025-01-01",
+  inscripcionEstadoId: 9,
+  creadoEn: new Date()
 });
 
 db.inscripciones.insertMany([
-    { estudianteId: estudiante._id, cursoId: curso._id, costo: 400000, fechaInscripcion: new Date(), estado: "activa", creadoEn: new Date() }
+  {
+    estudianteId: ObjectId(),
+    cursoId: ObjectId(),
+    costo: 400000.0,
+    fechaInscripcion: new Date(),
+    inscripcionEstadoId: 1, 
+    creadoEn: new Date()
+  },
+  {
+    estudianteId: ObjectId(),
+    cursoId: ObjectId(),
+    costo: 450000.0,
+    fechaInscripcion: new Date(),
+    inscripcionEstadoId: 3, 
+    creadoEn: new Date()
+  }
 ]);
 
 db.createCollection("instrumentos", {
-    validator: {
-        $jsonSchema: {
-            bsonType: "object",
-            required: ["tipo", "marca", "estado", "sedeId"],
-            properties: {
-                tipo: { enum: ["Piano", "Guitarra", "Violin", "Bajo", "Ukelele", "Teclado"] },
-                marca: { bsonType: "string" },
-                estado: { enum: ["disponible", "mantenimiento", "prestado", "baja"] },
-                sedeId: { bsonType: "objectId" },
-                codigoInventario: { bsonType: "string" },
-                creadoEn: { bsonType: "date" }
-            }
-        }
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: [
+        "tipoId",
+        "marca",
+        "estadoId",
+        "sedeId",
+        "codigoInventario",
+        "creadoEn"
+      ],
+      properties: {
+        tipoId: { bsonType: "int" },       
+        marca: { bsonType: "string", minLength: 1 },
+        estadoId: { bsonType: "int" },     
+        sedeId: { bsonType: "objectId" },
+        codigoInventario: { bsonType: "string", minLength: 1 },
+        creadoEn: { bsonType: "date" }
+      }
     }
+  }
 });
 
+
+db.instrumentos.createIndex({ sedeId: 1, estadoId: 1 });
+db.instrumentos.createIndex({ sedeId: 1, codigoInventario: 1 }, { unique: true });
+
+/* Dato erróneo (debe fallar) */
+db.instrumentos.insertOne({
+  tipoId: "Piano",
+  marca: "",
+  estadoId: 7,
+  sedeId: "objectid",
+  codigoInventario: "",
+  creadoEn: new Date()
+});
+
+
 db.instrumentos.insertMany([
-    { tipo: "Piano", marca: "Yamaha", estado: "disponible", sedeId: sede._id, codigoInventario: "INV-001", creadoEn: new Date() },
-    { tipo: "Guitarra", marca: "Fender", estado: "disponible", sedeId: sede._id, codigoInventario: "INV-002", creadoEn: new Date() },
-    { tipo: "Violin", marca: "Strad", estado: "mantenimiento", sedeId: sede._id, codigoInventario: "INV-003", creadoEn: new Date() }
+  {
+    tipoId: 1, 
+    marca: "Yamaha",
+    estadoId: 1, 
+    sedeId: ObjectId(),
+    codigoInventario: "INV-001",
+    creadoEn: new Date()
+  },
+  {
+    tipoId: 2, 
+    marca: "Fender",
+    estadoId: 1, 
+    sedeId: ObjectId(),
+    codigoInventario: "INV-002",
+    creadoEn: new Date()
+  },
+  {
+    tipoId: 3, 
+    marca: "Strad",
+    estadoId: 2, 
+    sedeId: ObjectId(),
+    codigoInventario: "INV-003",
+    creadoEn: new Date()
+  }
 ]);
 
 
 
 db.createCollection("reservas_instrumentos", {
-    validator: {
-        $jsonSchema: {
-            bsonType: "object",
-            required: ["estudianteId", "instrumentoId", "sedeId", "fechaReserva", "estado"],
-            properties: {
-                estudianteId: { bsonType: "objectId" },
-                instrumentoId: { bsonType: "objectId" },
-                sedeId: { bsonType: "objectId" },
-                fechaReserva: { bsonType: "date" },
-                estado: { enum: ["activa", "devuelta", "cancelada"] },
-                creadoEn: { bsonType: "date" }
-            }
-        }
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: [
+        "estudianteId",
+        "instrumentoId",
+        "sedeId",
+        "fechaReserva",
+        "reservaEstadoId",
+        "creadoEn"
+      ],
+      properties: {
+        estudianteId: { bsonType: "objectId" },
+        instrumentoId: { bsonType: "objectId" },
+        sedeId: { bsonType: "objectId" },
+        fechaReserva: { bsonType: "date" },
+        reservaEstadoId: { bsonType: "int" }, 
+        creadoEn: { bsonType: "date" }
+      }
     }
+  }
 });
 
+
+db.reservas_instrumentos.createIndex({ estudianteId: 1, reservaEstadoId: 1 });
+db.reservas_instrumentos.createIndex({ instrumentoId: 1, reservaEstadoId: 1 });
+db.reservas_instrumentos.createIndex({ fechaReserva: 1 });
+
+/* Dato erróneo (debe fallar) */
+db.reservas_instrumentos.insertOne({
+  estudianteId: "asdasdasda",
+  instrumentoId: ObjectId(),
+  sedeId: ObjectId(),
+  fechaReserva: "hoy",
+  reservaEstadoId: 9,
+  creadoEn: new Date()
+});
+
+
 db.reservas_instrumentos.insertMany([
-    { estudianteId: estudiante._id, instrumentoId: instrumento._id, sedeId: sede._id, fechaReserva: new Date(), estado: "activa", creadoEn: new Date() },
-    { estudianteId: estudiante._id, instrumentoId: instrumento._id, sedeId: sede._id, fechaReserva: new Date(), estado: "devuelta", creadoEn: new Date() }
+  {
+    estudianteId: ObjectId(),
+    instrumentoId: ObjectId(),
+    sedeId: ObjectId(),
+    fechaReserva: new Date(),
+    reservaEstadoId: 1, 
+    creadoEn: new Date()
+  },
+  {
+    estudianteId: ObjectId(),
+    instrumentoId: ObjectId(),
+    sedeId: ObjectId(),
+    fechaReserva: new Date(),
+    reservaEstadoId: 2, 
+    creadoEn: new Date()
+  }
 ]);
 
 db.createCollection("usuarios_sistema", {
-    validator: {
-        $jsonSchema: {
-            bsonType: "object",
-            required: ["nombre", "rol", "estado"],
-            properties: {
-                nombre: { bsonType: "string" },
-                rol: { enum: ["administrador", "empleado", "estudiante"] },
-                estado: { enum: ["activo", "inactivo"] },
-                creadoEn: { bsonType: "date" }
-            }
-        }
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["nombre", "rolId", "estadoId", "creadoEn"],
+      properties: {
+        nombre: { bsonType: "string", minLength: 3 },
+        rolId: { bsonType: "int" },     
+        estadoId: { bsonType: "int" },  
+        creadoEn: { bsonType: "date" }
+      }
     }
+  }
 });
 
+
+db.usuarios_sistema.createIndex({ rolId: 1, estadoId: 1 });
+db.usuarios_sistema.createIndex({ nombre: 1 }, { unique: true });
+
+
+db.usuarios_sistema.insertOne({
+  nombre: "cm",   
+  rolId: 9,
+  estadoId: "activo",
+  creadoEn: new Date()
+});
+
+
 db.usuarios_sistema.insertMany([
-    { nombre: "Administrador General", rol: "administrador", estado: "activo", creadoEn: new Date() },
-    { nombre: "Empleado Bogotá", rol: "empleado", estado: "activo", creadoEn: new Date() },
-    { nombre: "Estudiante Juan", rol: "estudiante", estado: "activo", creadoEn: new Date() }
+  { nombre: "Administrador General", rolId: 1, estadoId: 1, creadoEn: new Date() },
+  { nombre: "Empleado Bogotá",       rolId: 2, estadoId: 1, creadoEn: new Date() },
+  { nombre: "Estudiante Juan",       rolId: 3, estadoId: 1, creadoEn: new Date() }
 ]);
