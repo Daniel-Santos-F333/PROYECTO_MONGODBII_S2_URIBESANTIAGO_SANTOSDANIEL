@@ -72,29 +72,54 @@ db.estudiantes.insertMany([
     { nombre: "Luis Torres", documento: "CC213124102", nivelId: 3, estadoId: 2, correo: "luis@gmail.com", telefono: "3171234569", contacto: { ciudad: "Cali", direccion: "Calle 17e # 67-89" }, creadoEn: new Date() }
 ]);
 
+
+
 db.createCollection("profesores", {
-    validator: {
-        $jsonSchema: {
-            bsonType: "object",
-            required: ["nombre", "especialidad", "estado"],
-            properties: {
-                nombre: { bsonType: "string", minLength: 3 },
-                especialidad: { enum: ["Piano", "Guitarra", "Violin", "Canto", "Teoria"] },
-                experiencia: { bsonType: "int", minimum: 0 },
-                estado: { enum: ["activo", "inactivo"] },
-                correo: { bsonType: "string", pattern: "^.+@.+\\..+$" },
-                telefono: { bsonType: "string" },
-                creadoEn: { bsonType: "date" }
-            }
-        }
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["nombre", "especialidadId", "experiencia", "estadoId", "correo", "creadoEn"],
+      properties: {
+        nombre: { bsonType: "string", minLength: 3 },
+        especialidadId: { bsonType: "int" },
+        experiencia: { bsonType: "int", minimum: 0 },
+        estadoId: { bsonType: "int" },
+        correo: { bsonType: "string", pattern: "^.+@.+\\..+$" },
+        telefono: { bsonType: "string", pattern: "^[0-9]{7,15}$" },
+        cursosAsignados: {
+          bsonType: "array",
+          items: { bsonType: "objectId" }
+        },
+        creadoEn: { bsonType: "date" }
+      }
     }
+  }
 });
 
+db.profesores.createIndex({ correo: 1 }, { unique: true });                  
+db.profesores.createIndex({ especialidadId: 1, estadoId: 1 });               
+db.profesores.createIndex({ nombre: "text" });                               
+
+
+//Comprobar que el validator si valide//
+db.profesores.insertOne({
+    nombre: "E",                  
+    especialidadId: 67,
+    experiencia: ninguna,                
+    estadoId: "activo",             
+    correo: "anagmail.com",     
+    telefono: "300",                
+    creadoEn: new Date()
+  });
+
+
+
 db.profesores.insertMany([
-    { nombre: "Ana Pérez", especialidad: "Piano", experiencia: 5, estado: "activo", correo: "ana@cm.com", telefono: "3000000000", creadoEn: new Date() },
-    { nombre: "Carlos Ruiz", especialidad: "Guitarra", experiencia: 8, estado: "activo", correo: "carlos@cm.com", telefono: "3010000000", creadoEn: new Date() },
-    { nombre: "Laura Gómez", especialidad: "Canto", experiencia: 4, estado: "inactivo", correo: "laura@cm.com", telefono: "3020000000", creadoEn: new Date() }
+  { nombre: "Ana Pérez",   especialidadId: 1, experiencia: 5, estadoId: 1, correo: "ana@cm.com",   telefono: "3000000000", cursosAsignados: [], creadoEn: new Date() },
+  { nombre: "Carlos Ruiz", especialidadId: 2, experiencia: 8, estadoId: 1, correo: "carlos@cm.com", telefono: "3010000000", cursosAsignados: [], creadoEn: new Date() },
+  { nombre: "Laura Gómez", especialidadId: 4, experiencia: 4, estadoId: 2, correo: "laura@cm.com",  telefono: "3020000000", cursosAsignados: [], creadoEn: new Date() }
 ]);
+
 
 db.createCollection("sedes", {
     validator: {
@@ -147,8 +172,7 @@ db.cursos.insertMany([
     { instrumento: "Canto", nivel: "avanzado", duracionSemanas: 12, cupos: 8, costo: 500000, sedeId: sede._id, profesorId: profesor._id, estado: "programado", creadoEn: new Date() }
 ]);
 
-const estudiante = db.estudiantes.findOne();
-const curso = db.cursos.findOne();
+
 
 db.createCollection("inscripciones", {
     validator: {
@@ -194,7 +218,7 @@ db.instrumentos.insertMany([
     { tipo: "Violin", marca: "Strad", estado: "mantenimiento", sedeId: sede._id, codigoInventario: "INV-003", creadoEn: new Date() }
 ]);
 
-const instrumento = db.instrumentos.findOne();
+
 
 db.createCollection("reservas_instrumentos", {
     validator: {
