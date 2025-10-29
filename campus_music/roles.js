@@ -1,5 +1,3 @@
-use("Proyecto_DB");
-
 db.createRole({
   role: "rolAdministrador",
   privileges: [
@@ -7,8 +5,7 @@ db.createRole({
       resource: { db: "Proyecto_DB", collection: "" },
       actions: [
         "find", "insert", "update", "remove",
-        "createCollection", "createIndex",
-        "dropCollection", "collMod"
+        "createCollection", "createIndex", "dropCollection", "collMod"
       ]
     }
   ],
@@ -25,8 +22,8 @@ db.createRole({
     { resource: { db: "Proyecto_DB", collection: "estudiantes" }, actions: ["find"] },
     { resource: { db: "Proyecto_DB", collection: "profesores" }, actions: ["find"] },
     { resource: { db: "Proyecto_DB", collection: "cursos" }, actions: ["find"] },
-    { resource: { db: "Proyecto_DB", collection: "inscripciones" }, actions: ["insert", "find"] },
-    { resource: { db: "Proyecto_DB", collection: "reservas_instrumentos" }, actions: ["insert", "find"] }
+    { resource: { db: "Proyecto_DB", collection: "inscripciones" }, actions: ["find", "insert"] },
+    { resource: { db: "Proyecto_DB", collection: "reservas_instrumentos" }, actions: ["find", "insert"] }
   ],
   roles: []
 });
@@ -37,19 +34,25 @@ db.createRole({
     { resource: { db: "Proyecto_DB", collection: "estudiantes" }, actions: ["find"] },
     { resource: { db: "Proyecto_DB", collection: "cursos" }, actions: ["find"] },
     { resource: { db: "Proyecto_DB", collection: "inscripciones" }, actions: ["find"] },
-    { resource: { db: "Proyecto_DB", collection: "reservas_instrumentos" }, actions: ["insert", "find"] }
+    { resource: { db: "Proyecto_DB", collection: "reservas_instrumentos" }, actions: ["find", "insert"] }
   ],
   roles: []
 });
 
-db.grantRolesToUser("admin_user", [
-  { role: "rolAdministrador", db: "Proyecto_DB" }
-]);
+db.createUser({
+  user: "admin_user",
+  pwd: "Admin#2025",
+  roles: [{ role: "rolAdministrador", db: "Proyecto_DB" }]
+});
 
-db.grantRolesToUser("empleado_bogota", [
-  { role: "rolEmpleadoSede", db: "Proyecto_DB" }
-]);
+db.createUser({
+  user: "empleado_bogota",
+  pwd: "Empleado#2025",
+  roles: [{ role: "rolEmpleadoSede", db: "Proyecto_DB" }]
+});
 
-db.grantRolesToUser("estudiante_e01", [
-  { role: "rolEstudiante", db: "Proyecto_DB" }
-]);
+db.createUser({
+  user: "estudiante_e01",
+  pwd: "Estudiante#2025",
+  roles: [{ role: "rolEstudiante", db: "Proyecto_DB" }]
+});
