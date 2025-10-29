@@ -219,3 +219,76 @@ Este modelo nos permite visualizar de forma clara cómo fluirá la información 
 <br>
 
 ![Diagrama de Relación Entidad de la Escuela de Música](diagramas/logicoimproved.png)
+
+
+
+
+
+## Modelo Fisico
+
+## Creación de índices
+
+Los índices se definieron sobre los campos de consulta más frecuentes.
+
+### Estudiantes
+- Índice único: `{ documento: 1 }` para impedir documentos repetidos.
+
+### Profesores
+- Índice único: `{ correo: 1 }` para evitar correos duplicados.
+- Índice de texto: `{ nombre: "text" }` para búsquedas por nombre.
+
+### Sedes
+- Índice compuesto único: `{ ciudad: 1, direccion: 1 }` para no duplicar direcciones en una misma ciudad.
+
+### Cursos
+- Índice por sede: `{ sedeId: 1 }` para filtrar cursos por sede.
+
+### Inscripciones
+- Índice compuesto: `{ estudianteId: 1, cursoId: 1 }` para relación estudiante–curso y deduplicación lógica.
+
+### Instrumentos
+- Índice compuesto único: `{ sedeId: 1, codigoInventario: 1 }` para asegurar unicidad del inventario por sede.
+
+### Reservas de instrumentos
+- Índice compuesto: `{ estudianteId: 1, instrumentoId: 1 }` para verificar reservas por estudiante e instrumento.
+
+---
+
+## Creación de roles y usuarios
+
+Se definieron tres roles con alcance en la base de datos de la app (mismo `db.getName()`).
+
+### Rol administrador (`rol_admin_app`)
+- Acciones: `find`, `insert`, `update`, `remove`, `createCollection`, `createIndex`, `dropCollection`.
+- Uso: administración total y mantenimiento.
+
+### Rol analista (`rol_analista`)
+- Acciones: `find`, `collStats`, `dbStats`.
+- Uso: lectura y estadísticas (BI/reportes).
+
+### Rol lector (`rol_lector`)
+- Acciones: `find`.
+- Uso: solo lectura (consultas básicas).
+
+### Usuarios creados
+
+| Usuario         | Rol asignado       | Permisos principales                                          |
+|-----------------|--------------------|---------------------------------------------------------------|
+| admin_user      | rolAdministrador   | Control total sobre todas las colecciones de la base de datos |
+| empleado_bogota | rolEmpleadoSede    | Puede consultar y registrar inscripciones o reservas          |
+| estudiante_e01  | rolEstudiante      | Puede consultar cursos y crear reservas personales            |
+
+---
+
+
+## Conclusiones y mejoras
+
+- MongoDB funcionó bien porque no fue necesario definir todo desde el inicio.  
+- Los validadores `$jsonSchema` mantuvieron consistencia de tipos y formatos (especialmente correos y fechas).  
+- Los índices aceleran consultas comunes (documento, correo, relaciones por id).  
+- Los roles simplifican controlar quién puede leer o modificar.
+
+**Mejoras posibles:**
+- Automatizar inserciones y referencias para no usar `ObjectId()` “vacíos”.
+
+
