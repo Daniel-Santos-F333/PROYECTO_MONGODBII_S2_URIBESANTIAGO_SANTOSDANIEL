@@ -91,6 +91,17 @@ Y asi el proyecto no solo busca ofrecer una solución funcional a los problemas 
 <br>
 <br>
 
-Se presenta el caso de Campus Music, una empresa que se encarga de administrar varias escuelas de música en diferentes ciudades del país, sin embargo sus funciones de gestión de datos como registro de estudiantes, docentes, cursos e inscripciones se realizan manualmente por medio de hojas de calculo, lo que ha generado duplicación de datos, errores de calculos y problemas en su gestión financiera, entre otros.
 
-En este caso creamos la base guiandonos por medio de modelos conceptuales
+Se presenta el caso de Campus Music, una empresa encargada de administrar varias escuelas de música en diferentes ciudades del país. Sin embargo, sus procesos de gestión de datos, como el registro de estudiantes, docentes, cursos e inscripciones, se realizan de forma manual mediante hojas de cálculo, lo que ha generado duplicación de información, errores en los cálculos y errores en la gestión administrativa y financiera.
+
+Ante esta situación, se propuso el desarrollo de una base de datos implementada en MongoDB como alternativa, más eficiente y organizada. Esta solución busca centralizar toda la información en un solo sistema, permitiendo un manejo más rápido, confiable y estructurado de los datos, además de reducir los errores provocados por el manejo manual.
+
+Con la implementación de esta propuesta, Campus Music mejorará la integridad de sus registros, optimizar el acceso a la información y mejorar la gestión general de sus operaciones internas.
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
