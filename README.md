@@ -110,3 +110,94 @@ Con la implementación de esta propuesta, Campus Music mejorará la integridad d
 <div id="planificacion">
 <h2>Modelo Conceptual</h2>
 </div>
+
+El modelo conceptual representa de forma general cómo se relacionan los distintos elementos que hacen parte del sistema de Campus Music. Su funcion es mostrar la estructura lógica de la información sin entrar todavía en muchos detalles, como tipos de datos o validaciones. Ayuda a entender qué entidades fueron determinadas, cómo se conectan entre ellas y qué papel cumple cada una dentro del sistema.
+
+<div>
+<h3>Grafica</h3>
+</div>
+
+```mermaid
+classDiagram
+    direction LR
+
+    class Sede {
+        Ciudad
+        Dirección
+    }
+    class Curso {
+        Instrumento
+        Nivel
+        Horario
+        Costo
+    }
+    class Profesor {
+        Especialidad
+        Experiencia
+    }
+    class Estudiante {
+        Documento
+        Nivel Musical
+    }
+    class Inscripción {
+        Fecha de Inscripción
+        Costo pagado
+    }
+    class Instrumento {
+        Tipo
+    }
+    class Reserva {
+        Fecha de Reserva
+    }
+    class Usuario {
+        Rol (Admin, Profesor, Estudiante)
+    }
+
+    %% Relaciones Conceptuales (Basadas en el negocio)
+
+    Sede "1" -- "N" Curso : "Ofrece"
+    Profesor "1" -- "N" Curso : "Asigna"
+
+    Estudiante "N" -- "N" Curso : "Se inscribe en"
+    Estudiante "1" -- "N" Inscripción : "Realiza"
+    Curso "1" -- "N" Inscripción : "Es el objeto de"
+    Inscripción "N" -- "1" Sede : "Ocurre en"
+    Inscripción "N" -- "1" Profesor : "Asociada a"
+
+    Estudiante "1" -- "N" Reserva : "Realiza"
+    Instrumento "1" -- "N" Reserva : "Es el objeto de"
+
+    Usuario "1" -- "1" Estudiante : "Gestiona acceso de"
+    Usuario "1" -- "1" Profesor : "Gestiona acceso de 43"
+```
+En este caso, el modelo está compuesto por varias entidades principales:
+
+- **Usuario:** controla el acceso al sistema y define el rol de cada persona (administrador, profesor o estudiante).
+
+- **Sede**: representa las escuelas de música ubicadas en diferentes ciudades, con su respectiva dirección.
+
+- **Profesor:** contiene los datos de los docentes, junto con su especialidad y experiencia.
+
+- **Estudiante:** almacena información personal de los alumnos, como documento y nivel musical.
+
+- **Curso:** indica los cursos que ofrece cada sede, detallando el instrumento, nivel, horario y costo.
+
+- **Inscripción:** relaciona a los estudiantes con los cursos y profesores, guardando la fecha y el costo pagado.
+
+- **Instrumento:** muestra los tipos de instrumentos disponibles para préstamo o uso dentro de las sedes.
+
+- **Reserva:** conecta a los estudiantes con los instrumentos que utilizan, registrando la fecha de la reserva.
+
+A su vez estas entidades están relacionadas entre ellas de manera que muestran cómo interactúan dentro del sistema. 
+
+En cuanto a la normalización se refiere, el modelo cumple con los principios hasta la tercera forma normal, ya que todos los atributos son atómicos y dependen completamente de su clave principal y no existen dependencias entre atributos que no sean clave. Esto permite evitar redundancias y asegurar que la información esté organizada de manera lógica y coherente.
+
+<br>
+<br>
+<br>
+<br>
+
+<div id="modelologico">
+<h2>Modelo Lógico</h2>
+</div>
+
