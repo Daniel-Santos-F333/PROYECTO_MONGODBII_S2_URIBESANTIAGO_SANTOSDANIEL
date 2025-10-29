@@ -55,6 +55,10 @@
     - [Modelo Lógico](#modelológico)............................................................................................................. 4.2
 
     - [Modelo Físico](#modelofisico)............................................................................................................... 4.3
+    - [Justificación del uso de MongoDB](justificacion).......................................................................4.4
+    - [Creacion de Indices](indices).....................................................................................................4.5
+    - [Creacion de Roles y Usuarios](roles)..................................................................................4.6
+    - [Conclusiones y Mejoras](conclusiones).............................................................................................4.7
 
 <br>
 <br>
@@ -226,7 +230,7 @@ Este modelo nos permite visualizar de forma clara cómo fluirá la información 
 
 ## Modelo Fisico
 
-### Justificación del uso de MongoDB
+### [Justificación del uso de MongoDB](justificacion)
 
 Elegimos MongoDB porque:
 
@@ -240,7 +244,7 @@ Elegimos MongoDB porque:
 
 MongoDB nos brindada flexibilidad, rapidez de desarrollo y soporta las garantías necesarias para la lógica de negocio (transacciones y validaciones). Ademas el cliente solicito este Gestor.
 
-## Creación de índices
+## [Creación de índices](indices)
 
 Los índices se definieron sobre los campos de consulta más frecuentes.
 
@@ -268,7 +272,7 @@ Los índices se definieron sobre los campos de consulta más frecuentes.
 
 ---
 
-## Creación de roles y usuarios
+## [Creación de roles y usuarios](roles)
 
 Se definieron tres roles con alcance en la base de datos de la app (mismo `db.getName()`).
 
@@ -295,7 +299,7 @@ Se definieron tres roles con alcance en la base de datos de la app (mismo `db.ge
 ---
 
 
-## Conclusiones y mejoras
+## [Conclusiones y mejoras](conclusiones)
 
 - MongoDB funcionó bien porque no fue necesario definir todo desde el inicio.  
 - Los validadores `$jsonSchema` mantuvieron consistencia de tipos y formatos (especialmente correos y fechas).  
