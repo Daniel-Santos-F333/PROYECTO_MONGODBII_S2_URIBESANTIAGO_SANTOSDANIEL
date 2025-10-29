@@ -64,7 +64,7 @@
 <br>
 <br>
 
-<div align="center">
+<div id="introduccion" align="center">
 <h1>Introducción</h1>
 </div>
 <br>
@@ -85,7 +85,7 @@ Y asi el proyecto no solo busca ofrecer una solución funcional a los problemas 
 <br>
 <br>
 <br>
-<div align="center">
+<div id="casodeestudio" align="center">
 <h1>Caso de Estudio</h1>
 </div>
 <br>
