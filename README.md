@@ -226,6 +226,20 @@ Este modelo nos permite visualizar de forma clara cómo fluirá la información 
 
 ## Modelo Fisico
 
+### Justificación del uso de MongoDB
+
+Elegimos MongoDB porque:
+
+- Permite modelos en documentos (JSON) que encajan bien con entidades que cambian de estructura (ej. distintos campos para cursos, instrumentos, perfiles).
+
+- Facilidad para integrar con JavaScript/Node.js (mis scripts y tests están en JS).
+
+- Soporta transacciones multi-documento (necesarias para inscripciones que afectan varias colecciones).
+
+- Buen rendimiento para consultas agregadas y flexibles (agg framework), útil para reportes de ocupación, cursos demandados, etc.
+
+MongoDB nos brindada flexibilidad, rapidez de desarrollo y soporta las garantías necesarias para la lógica de negocio (transacciones y validaciones). Ademas el cliente solicito este Gestor.
+
 ## Creación de índices
 
 Los índices se definieron sobre los campos de consulta más frecuentes.
