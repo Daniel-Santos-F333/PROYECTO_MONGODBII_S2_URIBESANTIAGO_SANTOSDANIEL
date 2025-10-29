@@ -219,6 +219,7 @@ Este modelo nos permite visualizar de forma clara cómo fluirá la información 
 
 <br>
 ```mermaid
+
     erDiagram 
         SEDE ||--o{ CURSO : "tiene"
         PROFESOR ||--o{ CURSO : "asigna"
