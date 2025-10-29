@@ -107,7 +107,7 @@ Con la implementación de esta propuesta, Campus Music mejorará la integridad d
 </div>
 <br>
 
-<div id="planificacion">
+<div id="modeloconceptual">
 <h2>Modelo Conceptual</h2>
 </div>
 
@@ -197,7 +197,103 @@ En cuanto a la normalización se refiere, el modelo cumple con los principios ha
 <br>
 <br>
 
-<div id="modelologico">
+<div id="modelológico">
 <h2>Modelo Lógico</h2>
 </div>
+<br>
+<br>
+
+El modelo lógico es una manera más técnica de representar lala estructura del sistema y cómo la información será organizada dentro de la base de datos. Diferente del modelo conceptual, el lógico ya define los atributos, tipos de datos y relaciones entre las colecciones, lo que lo hace más cercano al diseño real que se implementará.
+
+En el caso de este proyecto, el modelo lógico sirve para mostrar cómo se conectan las diferentes colecciones de MongoDB como Usuarios, Profesores, Estudiantes, Sedes, Cursos, Inscripciones, Instrumentos y Reservas de Instrumentos.
+Cada una tiene sus propios campos y referencias, mostrando qué datos se guardan, qué claves se relacionan entre sí y cómo se mantiene la integridad entre los registros.
+
+Por ejemplo, los estudiantes están vinculados a un usuario para su acceso, las inscripciones conectan estudiantes con cursos y profesores, y las reservas relacionan instrumentos con los alumnos que los utilizan.
+
+Este modelo nos permite visualizar de forma clara cómo fluirá la información y comprobar que el diseño que hemos planteado cumple con las reglas de consistencia y normalización necesarias.
+
+<br>
+<div>
+<h3>Grafica</h3>
+</div>
+
+<br>
+```mermaid
+    erDiagram 
+        SEDE ||--o{ CURSO : "tiene"
+        PROFESOR ||--o{ CURSO : "asigna"
+        ESTUDIANTE ||--o{ INSCRIPCION : "realiza"
+        CURSO ||--o{ INSCRIPCION : "posee"
+        ESTUDIANTE ||--o{ RESERVA_INSTRUMENTO : "hace"
+        INSTRUMENTO ||--o{ RESERVA_INSTRUMENTO : "incluye"
+        USUARIO ||--o| ESTUDIANTE : "perfil_estudiante"
+        USUARIO ||--o| PROFESOR : "perfil_profesor"
+
+        SEDE {
+            ObjectId _id PK
+            string nombre
+            string ciudad
+            string direccion
+            int capacidad
+        }
+
+        PROFESOR {
+            ObjectId _id PK
+            string nombre
+            string especialidad
+            string experiencia
+        }
+
+        CURSO {
+            ObjectId _id PK
+            string instrumento
+            int duracion
+            int cupos_totales
+            int cupos_disponibles
+            double costo
+            string nivel "Principiante, Básico, Avanzado"
+            string estado "Activo, Inactivo, Finalizado"
+            ObjectId profesor_id FK "Referencia a Profesor"
+            ObjectId sede_id FK "Referencia a Sede"
+        }
+
+        ESTUDIANTE {
+            ObjectId _id PK
+            string nombre
+            string documento UK
+            string nivel_musical
+            object contacto "teléfono, email"
+            ObjectId usuario_id FK "Referencia a Usuario"
+        }
+
+        INSCRIPCION {
+            ObjectId _id PK
+            date fecha_inscripcion
+            double costo_en_inscripcion
+            ObjectId estudiante_id FK "Referencia a Estudiante"
+            ObjectId curso_id FK "Referencia a Curso"
+            ObjectId sede_id FK "Referencia a Sede"
+            object datos_curso_snapshot "Instrumento, Nivel, Profesor embebidos"
+        }
+
+        INSTRUMENTO {
+            ObjectId _id PK
+            string tipo
+            string estado "Disponible, Prestado, Mantenimiento"
+        }
+
+        RESERVA_INSTRUMENTO {
+            ObjectId _id PK
+            date fecha_reserva
+            date fecha_devolucion
+            ObjectId estudiante_id FK "Referencia a Estudiante"
+            ObjectId instrumento_id FK "Referencia a Instrumento"
+        }
+
+        USUARIO {
+            ObjectId _id PK
+            string email UK
+            string password
+            string rol "Administrador, Empleado_sede, Estudiante, Profesor"
+        }
 
