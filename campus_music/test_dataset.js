@@ -20,7 +20,7 @@ db.sedes.insertMany([
     capacidad: 180,
     estadoId: 1,
     creadoEn: new Date(),
-  }, d
+  }
 ]);
 
 //Inserciones de cursos
@@ -81,7 +81,8 @@ db.cursos.insertMany([
     creadoEn: new Date(),
   },
 ]);
-//Inserciones de cursos
+
+//Inserciones de profes
 db.profesores.insertMany([
   { nombre: "Ana Pérez", especialidadId: 1, experiencia: 5, estadoId: 1, correo: "ana@cm.com", telefono: "3000000000", cursosAsignados: [], creadoEn: new Date() },
   { nombre: "Carlos Ruiz", especialidadId: 2, experiencia: 8, estadoId: 1, correo: "carlos@cm.com", telefono: "3010000000", cursosAsignados: [], creadoEn: new Date() },
@@ -95,6 +96,7 @@ db.profesores.insertMany([
   { nombre: "Diego Fernández", especialidadId: 5, experiencia: 11, estadoId: 1, correo: "diego@cm.com", telefono: "3090000000", cursosAsignados: [], creadoEn: new Date() }
 ]);
 
+//Inserciones de estudiantes
 db.estudiantes.insertMany([
   { nombre: "Est. 01", documento: "DOC1001", nivelId: 1, estadoId: 1, correo: "e01@cm.com", telefono: "3100000001", creadoEn: new Date() },
   { nombre: "Est. 02", documento: "DOC1002", nivelId: 2, estadoId: 1, correo: "e02@cm.com", telefono: "3100000002", creadoEn: new Date() },
@@ -113,6 +115,7 @@ db.estudiantes.insertMany([
   { nombre: "Est. 15", documento: "DOC1015", nivelId: 3, estadoId: 1, correo: "e15@cm.com", telefono: "3100000015", creadoEn: new Date() }
 ]);
 
+//Inserciones de instrumentos
 db.instrumentos.insertMany([
   { tipoId: 1, marca: "Yamaha", estadoId: 1, sedeId: ObjectId(), codigoInventario: "INV-001", creadoEn: new Date() },
   { tipoId: 2, marca: "Fender", estadoId: 1, sedeId: ObjectId(), codigoInventario: "INV-002", creadoEn: new Date() },
@@ -135,6 +138,8 @@ db.instrumentos.insertMany([
   { tipoId: 4, marca: "Cort", estadoId: 1, sedeId: ObjectId(), codigoInventario: "INV-019", creadoEn: new Date() },
   { tipoId: 2, marca: "Epiphone", estadoId: 1, sedeId: ObjectId(), codigoInventario: "INV-020", creadoEn: new Date() }
 ]);
+
+//Inserciones de inscripciones 
 
 db.inscripciones.insertMany([
   { estudianteId: ObjectId(), cursoId: ObjectId(), costo: 400000, fechaInscripcion: new Date(), inscripcionEstadoId: 1, creadoEn: new Date() },
@@ -169,6 +174,7 @@ db.inscripciones.insertMany([
   { estudianteId: ObjectId(), cursoId: ObjectId(), costo: 450000, fechaInscripcion: new Date(), inscripcionEstadoId: 3, creadoEn: new Date() }
 ]);
 
+//Inserciones de reservas
 db.reservas_instrumentos.insertMany([
   { estudianteId: ObjectId(), instrumentoId: ObjectId(), sedeId: ObjectId(), fechaReserva: new Date(), reservaEstadoId: 1, creadoEn: new Date() },
   { estudianteId: ObjectId(), instrumentoId: ObjectId(), sedeId: ObjectId(), fechaReserva: new Date(), reservaEstadoId: 2, creadoEn: new Date() },
