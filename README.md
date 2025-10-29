@@ -50,13 +50,11 @@
 - [Introducción](#introduccion) ............................................................................................................................. 2
 - [Caso de Estudio](#casodeestudio)........................................................................................................................ 3
 
-- [Planificación](#planificacion).............................................................................................................................. 4
+- [Planificación](#planificacion)............................................................................................................................... 4
+    - [Modelo Conceptual](#modeloconceptual)................................................................................................... 4.1
+    - [Modelo Lógico](#modelológico)............................................................................................................. 4.2
 
-   - [Modelo Conceptual](#modeloconceptual)...................................................................................................... 4.1
-
-    - [Modelo Lógico](#modelológico)............................................................................................................... 4.2
-
-    - [Modelo Físico](#modelofisico)................................................................................................................. 4.3
+    - [Modelo Físico](#modelofisico)............................................................................................................... 4.3
 
 <br>
 <br>
@@ -91,12 +89,11 @@ Y asi el proyecto no solo busca ofrecer una solución funcional a los problemas 
 <br>
 <br>
 
-
 Se presenta el caso de Campus Music, una empresa encargada de administrar varias escuelas de música en diferentes ciudades del país. Sin embargo, sus procesos de gestión de datos, como el registro de estudiantes, docentes, cursos e inscripciones, se realizan de forma manual mediante hojas de cálculo, lo que ha generado duplicación de información, errores en los cálculos y errores en la gestión administrativa y financiera.
 
 Ante esta situación, se propuso el desarrollo de una base de datos implementada en MongoDB como alternativa, más eficiente y organizada. Esta solución busca centralizar toda la información en un solo sistema, permitiendo un manejo más rápido, confiable y estructurado de los datos, además de reducir los errores provocados por el manejo manual.
 
-Con la implementación de esta propuesta, Campus Music mejorará la integridad de sus registros, optimizar el acceso a la información y mejorar la gestión general de sus operaciones internas.
+Con la implementación de esta propuesta, Campus Music mejorará la integridad de sus registros, optimizará el acceso a la información y mejorará la gestión general de sus operaciones internas.
 
 <br>
 <br>
@@ -105,3 +102,11 @@ Con la implementación de esta propuesta, Campus Music mejorará la integridad d
 <br>
 <br>
 <br>
+<div id="planificacion" align="center">
+<h1>Planificación</h1>
+</div>
+<br>
+
+<div id="planificacion">
+<h2>Modelo Conceptual</h2>
+</div>
