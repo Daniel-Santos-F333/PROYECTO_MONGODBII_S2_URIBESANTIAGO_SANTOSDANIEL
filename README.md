@@ -304,5 +304,11 @@ Se definieron tres roles con alcance en la base de datos de la app (mismo `db.ge
 
 **Mejoras posibles:**
 - Automatizar inserciones y referencias para no usar `ObjectId()` “vacíos”.
+- Implementar control de acceso por sede a nivel de aplicación.
 
+- Agregar auditoría (colección audit_logs) para trazabilidad de cambios.
+
+- Automatizar tests para las agregaciones críticas.
+
+- Añadir monitorización/alertas por cupos críticos o inconsistencias.
 
