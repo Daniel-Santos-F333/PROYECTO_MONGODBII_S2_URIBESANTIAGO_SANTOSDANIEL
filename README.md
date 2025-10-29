@@ -55,10 +55,10 @@
     - [Modelo Lógico](#modelológico)............................................................................................................. 4.2
 
     - [Modelo Físico](#modelofisico)............................................................................................................... 4.3
-    - [Justificación del uso de MongoDB](justificacion).......................................................................4.4
-    - [Creacion de Indices](indices).....................................................................................................4.5
-    - [Creacion de Roles y Usuarios](roles)..................................................................................4.6
-    - [Conclusiones y Mejoras](conclusiones).............................................................................................4.7
+        - [Justificación del uso de MongoDB](#justificacion)......................................................... 4.4.1
+        - [Creacion de Indices](#indices)....................................................................................... 4.4.2
+        - [Creacion de Roles y Usuarios](#roles).................................................................... 4.4.3
+- [Conclusiones y Mejoras](#conclusiones)......................................................................................................... 5
 
 <br>
 <br>
@@ -224,13 +224,19 @@ Este modelo nos permite visualizar de forma clara cómo fluirá la información 
 
 ![Diagrama de Relación Entidad de la Escuela de Música](diagramas/logicoimproved.png)
 
+<br>
+<br>
+<br>
+<br>
+<br>
 
+<div id="modelofisico">
+<h2>Modelo Fisico</h2>
+</div>
 
-
-
-## Modelo Fisico
-
-### [Justificación del uso de MongoDB](justificacion)
+<div id="justificacion">
+<h3>Jusitificación del Uso de MongoDB </h3>
+</div>
 
 Elegimos MongoDB porque:
 
@@ -242,53 +248,57 @@ Elegimos MongoDB porque:
 
 - Buen rendimiento para consultas agregadas y flexibles (agg framework), útil para reportes de ocupación, cursos demandados, etc.
 
-MongoDB nos brindada flexibilidad, rapidez de desarrollo y soporta las garantías necesarias para la lógica de negocio (transacciones y validaciones). Ademas el cliente solicito este Gestor.
+MongoDB nos brinda flexibilidad, rapidez de desarrollo y soporta las garantías necesarias para la lógica de negocio (transacciones y validaciones). Ademas el cliente solicito este Gestor.
 
-## [Creación de índices](indices)
+<div id="indices">
+<h3>Creacion de Indices</h3>
+</div>
 
 Los índices se definieron sobre los campos de consulta más frecuentes.
 
-### Estudiantes
+#### Estudiantes
 - Índice único: `{ documento: 1 }` para impedir documentos repetidos.
 
-### Profesores
+#### Profesores
 - Índice único: `{ correo: 1 }` para evitar correos duplicados.
 - Índice de texto: `{ nombre: "text" }` para búsquedas por nombre.
 
-### Sedes
+#### Sedes
 - Índice compuesto único: `{ ciudad: 1, direccion: 1 }` para no duplicar direcciones en una misma ciudad.
 
-### Cursos
+#### Cursos
 - Índice por sede: `{ sedeId: 1 }` para filtrar cursos por sede.
 
-### Inscripciones
+#### Inscripciones
 - Índice compuesto: `{ estudianteId: 1, cursoId: 1 }` para relación estudiante–curso y deduplicación lógica.
 
-### Instrumentos
+#### Instrumentos
 - Índice compuesto único: `{ sedeId: 1, codigoInventario: 1 }` para asegurar unicidad del inventario por sede.
 
-### Reservas de instrumentos
+#### Reservas de instrumentos
 - Índice compuesto: `{ estudianteId: 1, instrumentoId: 1 }` para verificar reservas por estudiante e instrumento.
 
 ---
 
-## [Creación de roles y usuarios](roles)
+<div id="roles">
+<h3>Creacion de Roles y Usuarios</h3>
+</div>
 
 Se definieron tres roles con alcance en la base de datos de la app (mismo `db.getName()`).
 
-### Rol administrador (`rol_admin_app`)
+#### Rol administrador (`rol_admin_app`)
 - Acciones: `find`, `insert`, `update`, `remove`, `createCollection`, `createIndex`, `dropCollection`.
 - Uso: administración total y mantenimiento.
 
-### Rol analista (`rol_analista`)
+#### Rol analista (`rol_analista`)
 - Acciones: `find`, `collStats`, `dbStats`.
 - Uso: lectura y estadísticas (BI/reportes).
 
-### Rol lector (`rol_lector`)
+#### Rol lector (`rol_lector`)
 - Acciones: `find`.
 - Uso: solo lectura (consultas básicas).
 
-### Usuarios creados
+#### Usuarios creados
 
 | Usuario         | Rol asignado       | Permisos principales                                          |
 |-----------------|--------------------|---------------------------------------------------------------|
@@ -299,7 +309,9 @@ Se definieron tres roles con alcance en la base de datos de la app (mismo `db.ge
 ---
 
 
-## [Conclusiones y mejoras](conclusiones)
+<div id="conclusiones">
+<h3>Conclusiones y Mejoras</h3>
+</div>
 
 - MongoDB funcionó bien porque no fue necesario definir todo desde el inicio.  
 - Los validadores `$jsonSchema` mantuvieron consistencia de tipos y formatos (especialmente correos y fechas).  
